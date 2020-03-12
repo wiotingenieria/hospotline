@@ -1,0 +1,310 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
+
+
+msgid "Inicio"
+msgstr "Start"
+
+msgid "Senha"
+msgstr "Password"
+
+msgid "Data inicio"
+msgstr "Start date"
+
+msgid "Final"
+msgstr "End"
+
+msgid "Data final"
+msgstr "End date"
+
+msgid "Pesquisar"
+msgstr "Search"
+
+msgid "Resumo conexões por período"
+msgstr "Summary of connections by period"
+
+msgid "Período selecionado"
+msgstr "Selected period"
+
+msgid "Conexões"
+msgstr "Connections"
+
+msgid "Usuários"
+msgstr "Users"
+
+msgid "Usuários diferentes"
+msgstr "Different users"
+
+msgid "Tempo médio"
+msgstr "Average time"
+
+msgid "Segundos"
+msgstr "Seconds"
+
+msgid "Comsumo médio"
+msgstr "Average Consuption"
+
+msgid "Download"
+msgstr "Download"
+
+msgid "Upload"
+msgstr "Upload"
+
+msgid "Resumo conexões"
+msgstr "Summary connections"
+
+msgid "Ultimos logins realizados"
+msgstr "Latest logged in"
+
+msgid "Data e hora"
+msgstr "Date and Time"
+
+msgid "Usuário"
+msgstr "User"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Nenhum resultado encontrado"
+msgstr "No results found"
+
+msgid "Ultimos logins rejeitados"
+msgstr "latest rejected logins"
+
+msgid "Atributo"
+msgstr "Attribute"
+
+msgid "Operador"
+msgstr "Operator"
+
+msgid "Valor"
+msgstr "Value"
+
+msgid "IP ( nasname )"
+msgstr "IP ( nasname )"
+
+msgid "Apelido ( shortname )"
+msgstr "Alias ( shortname )"
+
+msgid "Tipo"
+msgstr "Type"
+
+msgid "Portas"
+msgstr "Ports"
+
+msgid "Senha ( secret )"
+msgstr "Secret"
+
+msgid "Servidor"
+msgstr "Server"
+
+msgid "Comunidade"
+msgstr "Community"
+
+msgid "Descrição"
+msgstr "Description"
+
+msgid "Os campos marcados com * são obrigatórios"
+msgstr "Fields marked with * are required"
+
+msgid "Salvar"
+msgstr "Save"
+
+msgid "Ver usuário"
+msgstr "View User"
+
+msgid "Nome"
+msgstr "Name"
+
+msgid "Nenhum grupo encontrado"
+msgstr "No groups found"
+
+msgid "Atributos de verificação"
+msgstr "Check attributes"
+
+msgid "Nenhum atributo de verificação encontrado"
+msgstr "No check attributes found"
+
+msgid "Atributos de resposta"
+msgstr "Reply attributes"
+
+msgid "Nenhum atributo de resposta encontrado"
+msgstr "No reply attributes found"
+
+msgid "Apagar usuário"
+msgstr "Delete user"
+
+msgid "\"Deseja realmente apagar o usuário %name% ?\""
+msgstr " \"Do you really want to delete user %name% ? \""
+
+msgid "Apagar"
+msgstr "Delete"
+
+msgid "Geral"
+msgstr "General"
+
+msgid "O username do usuário"
+msgstr "The username of user"
+
+msgid "Adicionar grupo"
+msgstr "Add group"
+
+msgid "O groupname do grupo"
+msgstr "The groupname of group"
+
+msgid "A prioridade ocorre do mais alto para o mais baixo"
+msgstr "Priority is from highest to lowest"
+
+msgid "Notificações"
+msgstr "notifications"
+
+msgid "Sugestões"
+msgstr "suggestions"
+
+msgid "Sair"
+msgstr "Exit"
+
+msgid "Listar"
+msgstr "List"
+
+msgid "Criar"
+msgstr "Create"
+
+msgid "Grupos"
+msgstr "Groups"
+
+msgid "Estatísticas"
+msgstr "Statistics"
+
+msgid "Clientes ( NAS )"
+msgstr "Client ( NAS )"
+
+msgid "Alterar cliente"
+msgstr "Change client"
+
+msgid "Dispositivo"
+msgstr "Device"
+
+msgid "Todos"
+msgstr "All"
+
+msgid "Resumo conexões do usuário por período"
+msgstr "Summary User connections by period"
+
+msgid "Duração"
+msgstr "Duration"
+
+msgid "Cliente"
+msgstr "Client"
+
+msgid "Nenhum registro para exibir"
+msgstr "No records to display"
+
+msgid "Anterior"
+msgstr "Previous"
+
+msgid "Página"
+msgstr "Page"
+
+msgid "Próximo"
+msgstr "Next"
+
+msgid "Grupo"
+msgstr "Group"
+
+msgid "Atributos de Verificação"
+msgstr "Check attributes"
+
+msgid "Atributos de Resposta"
+msgstr "Reply attributes"
+
+msgid "Nenhum"
+msgstr "None"
+
+msgid "Apagar cliente"
+msgstr "Delete client"
+
+msgid "Deseja realmente apagar o cliente %nasname% ( %shortname% ) ?"
+msgstr "Do you really want to delete the client %nasname% ( %shortname% ) ?"
+
+msgid "Apagar grupo"
+msgstr "Delete group"
+
+msgid "\"Deseja realmente apagar o grupo %name% ?\""
+msgstr "Do you really want to delete the group %name%?"
+
+msgid "Apelido"
+msgstr "Alias"
+
+msgid "IP ( nasname)"
+msgstr "IP ( nasname )"
+
+msgid "Criar usuário"
+msgstr "Create user"
+
+msgid "Criar grupo"
+msgstr "Create group"
+
+msgid "Alterar grupo"
+msgstr "Change group"
+
+msgid "Alterar usuário"
+msgstr "Change user"
+
+msgid "Listar usuário"
+msgstr "List user"
+
+msgid "Estatísticas usuário"
+msgstr "Statistics user"
+
+msgid "Listar grupo"
+msgstr "List group"
+
+msgid "Ver grupo"
+msgstr "View group"
+
+msgid "Listar cliente"
+msgstr "List client"
+
+msgid "Ver Cliente"
+msgstr "View Client"
+
+msgid "Adicionar"
+msgstr "Add"
+
+msgid "Total de conexões"
+msgstr "Total connections"
+
+msgid "Total de usuários"
+msgstr "Total users"
+
+msgid "Ocorreu um erro interno"
+msgstr "An internal error occurred"
+
+msgid "Usuário e/ou senha incorretos"
+msgstr "User and/or password incorrects"
+
+msgid "Cliente não encontrado"
+msgstr "Client not found"
+
+msgid "Erro, você deve preencher o nome e no mínimo um atributo"
+msgstr "Error, you must fill in the name and at least one attribute"
+
+msgid "Grupo não encontrado"
+msgstr "Group not found"
+
+msgid "Usuário não encontrado"
+msgstr "User not found"
+
+msgid "O campo IP deve ser preenchido com um endereço IP válido"
+msgstr "The IP field must be filled in with a valid IP address"
+
+msgid "O campo Ports deve ser preenchido com um número inteiro"
+msgstr "The Ports field must be filled with an integer"
+
+msgid "pt-BR"
+msgstr "en"
+

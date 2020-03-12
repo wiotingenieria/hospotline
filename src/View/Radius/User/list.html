@@ -1,0 +1,175 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+{% block content %}
+    
+    <h1 class="ls-title-intro ls-ico-user">{% trans "Listar usuário" %}</h1>
+
+    <div class="ls-box-filter">
+        
+        <form action="{{ path_for( 'user_list' ) }}" class="ls-form ls-form-inline">
+            
+            
+            <input type="hidden" name="page" value="{{ page }}" />
+
+
+            <label class="ls-label col-md-3 col-sm-3">
+
+                <b class="ls-label-text">{% trans "Nome" %}</b>
+                
+                <input type="text" 
+                    name="name" 
+                    value="{{name}}" 
+                    placeholder="{% trans "Nome" %}" />
+
+            </label>
+
+            <label class="ls-label col-md-3 col-sm-3">
+
+                <b class="ls-label-text">{% trans "Atributo" %}</b>
+
+                <input type="text" 
+                    name="attribute" 
+                    value="{{attribute}}" 
+                    placeholder="{% trans "Atributo" %}" />
+
+            </label>
+
+            <label class="ls-label col-md-3 col-sm-3">
+
+                <b class="ls-label-text">{% trans "Grupo" %}</b>
+
+                <input type="text" 
+                    name="group" 
+                    value="{{group}}" 
+                    placeholder="{% trans "Grupo" %}" />
+
+            </label>
+
+
+            <input type="submit" 
+                value="{% trans "Pesquisar" %}" 
+                class="ls-btn ls-btn-primary ls-float-right"/>
+
+        </form>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <table class="ls-table table-collapse">
+                
+                <thead>
+                    <tr>
+                        <th>{% trans "Nome" %}</th>
+                        <th>{% trans "Atributos de Verificação" %}</th>
+                        <th>{% trans "Atributos de Resposta" %}</th>
+                        <th>{% trans "Grupos" %}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+
+                {% for user in users %}
+                    <tr>
+                        
+                        <td>{{user.name}}</td>
+
+                        <td>
+                            <div class="ls-custom-select">
+                                <select class="ls-select">
+                                    {% for radCheck in user.attributesCheck %}
+
+                                        <option value="1">{{radCheck.attribute}}</option>
+                                    {% else %}
+
+                                        <option>{% trans "Nenhum" %}</option>
+                                    {% endfor %}
+                                </select>
+                             </div>
+                        </td>
+
+                        <td>
+                            <div class="ls-custom-select">
+                                <select class="ls-select">
+                                    {% for radReply in user.attributesReply %}
+
+                                        <option>{{radReply.attribute}}</option>
+                                    {% else %}
+                                    
+                                        <option>{% trans "Nenhum" %}</option>
+                                    {% endfor %}
+                                </select>
+                             </div>
+                        </td>
+
+                        <td>
+                            <div class="ls-custom-select">
+                                <select class="ls-select">
+                                    {% for group in user.groups %}
+
+                                        <option>{{group.name}}</option>
+                                    {% else %}
+                                    
+                                        <option>{% trans "Nenhum" %}</option>
+                                    {% endfor %}
+                                </select>
+                             </div>
+                        </td>
+
+                        <td>
+
+                            <a href="{{ path_for( 'user_statistic' ) }}?name={{user.name}}" 
+                                class="ls-btn ls-ico-stats"></a>
+                    
+                            <a href="{{ path_for( 'user_update' ) }}?name={{user.name}}" 
+                                class="ls-btn ls-ico-edit-admin"></a>
+                    
+                           <a href="{{ path_for( 'user_delete' ) }}?name={{user.name}}" 
+                                class="ls-btn ls-ico-remove"></a>
+
+                        </td>
+                    </tr>
+
+                {% else %}
+                    <tr>
+                        <td colspan=5>
+                            {% trans "Nenhum registro para exibir" %}
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+            <ul class="ls-pager">
+
+                {% if page - 1 >= 0 %}
+
+                    <li>
+                        <a href="{{ path_for( 'user_list' ) }}?name={{name}}&attribute={{attribute}}&page={{page - 1}}">
+                            &laquo; {% trans "Anterior" %}
+                        </a>
+                    </li>
+                {% endif %}
+
+                    <li class="counter">
+                        {% trans "Página" %} {{page + 1}}
+                    </li>
+
+                {% if users is not empty %}
+                
+                    <li>
+                        <a href="{{ path_for( 'user_list' ) }}?name={{name}}&attribute={{attribute}}&page={{page + 1}}">
+                            {% trans "Próximo" %} &raquo;
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+
+
+        </div>
+    </div>
+
+{% endblock %}

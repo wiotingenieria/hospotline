@@ -1,0 +1,18 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+{% block content %}
+    
+    <h1 class="ls-title-intro ls-ico-user">
+        {% trans "Criar usuário" %}
+    </h1>
+
+    {% include "Radius/User/_form.html" with { } %}
+
+{% endblock %}
+{% block js %}
+
+    <script type="text/javascript" src="{{ base_url() }}/assets/public/js/user/_form.js"></script>
+    <script type="text/javascript" src="{{ base_url() }}/assets/public/js/attribute/_form.js"></script>
+
+{% endblock %}
+

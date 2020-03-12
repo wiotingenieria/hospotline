@@ -1,0 +1,140 @@
+
+<form method="POST" id="form-user" class="ls-form">
+
+    <input type="hidden" name="csrf_name" value="{{ token.name }}"/>
+            
+    <input type="hidden" name="csrf_value" value="{{ token.value }}"/>
+
+    {% if errors["main"] is not empty %}
+        <p class="ls-error">
+            {% for error in errors["main"] %}
+                <div class="ls-alert-danger">
+                    {% trans error %}
+                </div>
+            {% endfor %}
+        </p>
+    {% endif %}
+ 
+    <ul class="ls-tabs-nav">
+        <li class="ls-active">
+            <a data-ls-module="tabs" href="#form-general">
+                {% trans "Geral" %}
+            </a>
+        </li>
+        <li>
+            <a data-ls-module="tabs" href="#form-checks">
+                {% trans "Atributos de verificação" %}
+            </a>
+        </li>
+        <li>
+            <a data-ls-module="tabs" href="#form-replies">
+                {% trans "Atributos de resposta" %}
+            </a>
+        </li>
+    </ul>
+    
+    <div class="ls-tabs-container">
+ 
+        <div id="form-general" class="ls-tab-content ls-active">
+
+            <div class="row">
+
+                <label class="ls-label col-md-4">
+                    <b class="ls-label-text">{% trans "Nome" %}</b>
+                    <p class="ls-label-info">
+                        {% trans "O username do usuário" %} 
+                    </p>
+                    
+                    <input type="text" name="name" value="{{user.name}}" placeholder=""/>
+                    <input type="hidden" name="name-old" value="{{user.name}}"/>
+
+                    {% if errors["name"] is not empty %}
+                        <p class="ls-error">
+                            {% for error in errors["name"] %}
+                                    <small class="ls-help-message">{% trans error %}</small>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+                </label>
+
+                <label class="ls-label col-md-4">
+                    <b class="ls-label-text">{% trans "Adicionar grupo" %}</b>
+                    <p class="ls-label-info">{% trans "O groupname do grupo" %}</p>
+                    
+                    <div class="ls-prefix-group">
+                        <input type="text" id="input-add-group" />
+                        <a href="" id="btn-add-group" class="ls-label-text-prefix ls-bg-white">+</a>
+                    </div>
+
+                </label>
+
+                <label class="ls-label col-md-4">
+                    <b class="ls-label-text">Grupos</b>
+                    <p class="ls-label-info">
+                        {% trans "A prioridade ocorre do mais alto para o mais baixo" %}
+                    </p>
+
+                    <select id="select-groups" name="groups[]" multiple size="5" class="ls-input-text">
+
+                        {% for group in user.groups %}
+
+                            <option value="{{group.name}}">{{group.name}}</option>        
+                        {% endfor %}
+
+                    </select>
+
+                    {% if errors["name"] is not empty %}
+                        <p class="ls-error">
+                            {% for error in errors["name"] %}
+                                <small class="ls-help-message">{% trans error %}</small>
+                            {% endfor %}
+                        </p>
+                    {% endif %}
+
+                    
+                    <p style="margin-top: 10px;">
+                        <a id="btn-up-group" class="ls-btn ls-ico-shaft-up"></a>
+                        <a id="btn-down-group" class="ls-btn ls-ico-shaft-down"></a>
+                        <a id="btn-remove-group" class="ls-btn ls-ico-remove"></a>
+                    </p>
+
+                </label>
+
+            </div>
+              
+        </div>
+   
+        <div id="form-checks" class="ls-tab-content">
+            
+            <div class="row">
+                <div class="col-md-10">
+ 
+                    {% include "Radius/Attribute/_form_check.html" with { "entity": user } %}
+                </div>
+            </div>
+
+        </div>
+   
+        <div id="form-replies" class="ls-tab-content">
+             <div class="row">
+                <div class="col-md-10">
+
+                    {% include "Radius/Attribute/_form_reply.html" with { "entity": user } %}
+                </div>
+            </div>
+
+
+        </div>
+
+       <button type="button" 
+            id="btn-submit" 
+            class="ls-btn-dark ls-btn-lg">
+        
+            {% trans "Salvar" %}
+        
+        </button>
+
+    </div>
+
+</form>
+

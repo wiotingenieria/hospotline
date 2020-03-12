@@ -1,0 +1,30 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+{% block content %}
+    
+    <h1 class="ls-title-intro ls-ico-user">
+        {% trans "Apagar usuário" %}
+    </h1>
+
+    <form method="POST">
+
+        <p class="ls-text-lg">
+            
+            {% set name = user.name %}
+
+            {% trans %}
+                "Deseja realmente apagar o usuário {{ name }} ?" 
+            {% endtrans %}
+        </p>
+
+        <input type="hidden" name="csrf_name" value="{{ token.name }}"/>
+            
+        <input type="hidden" name="csrf_value" value="{{ token.value }}"/>
+
+        <button type="submit" class="ls-btn ls-btn-dark ls-btn-lg">
+            {% trans "Apagar" %}
+        </button>
+
+    </form>
+
+{% endblock %}

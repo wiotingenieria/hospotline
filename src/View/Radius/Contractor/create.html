@@ -1,0 +1,13 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+
+{% block content %}
+    
+    <h1 class="ls-title-intro ls-ico-ftp"> 
+    
+        {% trans "Criar cliente" %} 
+    </h1>
+
+    {% include "Radius/Client/_form.html" with { } %}
+
+{% endblock %}

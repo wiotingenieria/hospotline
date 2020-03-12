@@ -1,0 +1,67 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+
+{% block content %}
+ 
+<h1 class="ls-title-intro ls-ico-ftp">{% trans "Ver cliente" %}</h1>
+
+    <div class="ls-box">
+    
+        <h2 class="ls-title-4">{{client.nasname}}</h2>
+        
+        <hr/>
+
+        <div class="table-responsive">
+
+            <table class="ls-table">
+                
+                <thead>
+                    <tr>
+                        <th>{% trans "Atributo" %}</th>
+                        <th>{% trans "Valor" %}</th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+         
+                    <tr>
+                        <td>{% trans "Apelido ( shortname )" %}</td>
+                        <td>{{client.shortname}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{% trans "Tipo" %}</td>
+                        <td>{{client.type}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>{% trans "Portas" %}</td>
+                        <td>{{client.ports}}</td>
+                    </tr>
+   
+                    <tr>
+                        <td>{% trans "Senha ( secret )" %}</td>
+                        <td>{{client.secret}}</td>
+                    </tr>
+   
+                    <tr>
+                        <td>{% trans "Servidor" %}</td>
+                        <td>{{client.server}}</td>
+                    </tr>
+   
+                    <tr>
+                        <td>{% trans "Comunidade" %}</td>
+                        <td>{{client.community}}</td>
+                    </tr>
+   
+                    <tr>
+                        <td>{% trans "Descrição" %}</td>
+                        <td>{{client.description}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+</div>
+
+{% endblock %}

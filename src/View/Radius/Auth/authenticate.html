@@ -1,0 +1,86 @@
+{% extends "Radius/Layouts/login.html" %} 
+
+{% block content %}
+
+    <form class="ls-form ls-login-form" method="POST" action="{{ path_for( 'authenticate' ) }}">
+
+        <h1 class="ls-login-logo">Radius Admin</h1>   
+       
+        <input type="hidden" name="csrf_name" value="{{ token.name }}"/>
+            
+        <input type="hidden" name="csrf_value" value="{{ token.value }}"/>
+
+        <fieldset>
+
+            <label class="ls-label">
+                
+                <b class="ls-label-text ls-hidden-accessible">{% trans "Usuário" %}</b>
+                
+                <input type="text" 
+                    name="user" 
+                    class="ls-login-bg-user ls-field-lg" 
+                    placeholder="{% trans "Usuário" %}" 
+                    required 
+                    autofocus />
+            
+                {% if errors["user"] is not empty %}
+                    <p class="ls-error">
+                        {% for error in errors["user"] %}
+                                <small class="ls-help-message">{% trans error %}</small>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+            </label>
+
+            <label class="ls-label">
+
+                <b class="ls-label-text ls-hidden-accessible">{% trans "Senha" %}</b>
+
+                <div class="ls-prefix-group ls-field-lg">
+
+                    <input type="password" 
+                        name="password" 
+                        id="password_field" 
+                        class="ls-login-bg-password" 
+                        placeholder="{% trans "Senha" %}" 
+                        required/>
+
+                    <a class="ls-label-text-prefix ls-toggle-pass ls-ico-eye" 
+                        data-toggle-class="ls-ico-eye, ls-ico-eye-blocked" 
+                        data-target="#password_field" href="#">
+                    </a>
+                
+                </div>
+               
+               {% if errors["password"] is not empty %}
+                    <p class="ls-error">
+                        {% for error in errors["password"] %}
+                            <small class="ls-help-message">{% trans error %}</small>
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+            </label>
+
+            {% if errors["main"] is not empty %}
+                <p class="ls-error">
+                    {% for error in errors["main"] %}
+                        <small class="ls-help-message">{% trans error %}</small>
+                    {% endfor %}
+                </p>
+            {% endif %}
+
+            <input type="submit" 
+                value="{% trans "Entrar" %}" 
+                class="ls-btn-primary ls-btn-block ls-btn-lg" />
+
+        </fieldset>
+
+    </form>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+

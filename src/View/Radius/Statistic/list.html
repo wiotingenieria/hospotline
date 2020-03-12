@@ -1,0 +1,289 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+{% block content %}
+    
+    <h1 class="ls-title-intro ls-ico-stats">{% trans "Estatísticas" %}</h1>
+
+    <div class="ls-box-filter">
+        
+        <form action="{{ base_url() }}/protected/statistics/list" class="ls-form ls-form-inline">
+
+
+            <label class="ls-label col-md-3 col-sm-12">
+                <b class="ls-label-text">{% trans "Inicio" %}</b>
+                <div class="ls-prefix-group">
+                    
+                    <input type="text" 
+                        name="date1" 
+                        class="dtpicker" 
+                        placeholder="{% trans "Data inicio" %}" 
+                        id="date1" 
+                        data-language="{% trans "pt-BR" %}"
+                        value="{{date1}}"
+                        readonly />
+                    
+                    <span class="ls-label-text-prefix ls-ico-calendar btn-calendar"></span>
+                </div>
+            </label>
+
+            <label class="ls-label col-md-3 col-sm-12">
+                <div class="ls-prefix-group">
+                   
+                    <b class="ls-label-text">{% trans "Final" %}</b>
+                    <input type="text" 
+                        name="date2" 
+                        class="dtpicker" 
+                        placeholder="{% trans "Data final" %}" 
+                        id="date2" 
+                        data-language="{% trans "pt-BR" %}"
+                        value="{{date2}}"
+                        readonly />
+                    
+                    <span class="ls-label-text-prefix ls-ico-calendar btn-calendar"></span>
+                </div>
+            </label>
+
+            <input type="submit" 
+                value="{% trans "Pesquisar" %}" 
+                class="ls-btn ls-btn-primary ls-float-right"/>
+
+        </form>
+    </div>
+
+    <h2 class="ls-title-4 ls-md-margin-top">{{userName}}</h2>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <p>{% trans "Resumo conexões por período" %}</p>
+        </div>
+        <div class="col-md-6 col-sm-6">
+
+                <p class="ls-float-right ls-float-none-xs">
+                    {% trans "Período selecionado" %}: 
+                    <strong>
+                        {{ date1 ?: '' }} até {{ date2 ?: 'Agora' }}
+                    </strong>
+                </p>
+        </div>
+    </div>
+
+    <div class="ls-clearfix"></div>
+
+    <div class="ls-board-box">
+        <div id="sending-stats" class="row">
+    
+            <div class="col-sm-6 col-md-3">
+                <div class="ls-box">
+                   
+                    <div class="ls-box-head">
+                        <h6 class="ls-title-4">{% trans "Conexões" %}</h6>
+                    </div>
+                   
+                   <div class="ls-box-body">
+                        <strong class="ls-color-theme">{{ ( qtAccts ) | integer_format_locale }}</strong>
+                        <small>{% trans "Conexões" %}</small>
+                    </div>
+            
+                    <div class="ls-box-footer"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="ls-box">
+                   
+                    <div class="ls-box-head">
+                        <h6 class="ls-title-4">{% trans "Usuários" %}</h6>
+                    </div>
+                   
+                   <div class="ls-box-body">
+                        <strong class="ls-color-theme">{{ ( qtUsers ) |  integer_format_locale }}</strong>
+                        <small>{% trans "Usuários diferentes" %}</small>
+                    </div>
+            
+                    <div class="ls-box-footer"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <div class="ls-box">
+                   
+                    <div class="ls-box-head">
+                        <h6 class="ls-title-4">{% trans "Tempo médio" %}</h6>
+                    </div>
+                   
+                   <div class="ls-box-body">
+                        <strong class="ls-color-theme">{{ ( timeAvg|round ) | integer_format_locale }}</strong>
+                        <small>{% trans "Segundos" %}</small>
+                    </div>
+             
+                    <div class="ls-box-footer"></div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-md-3">
+                <div class="ls-box">
+                   
+                    <div class="ls-box-head">
+                        <h6 class="ls-title-4">{% trans "Comsumo médio" %}</h6>
+                    </div>
+                   
+                   <div class="ls-box-body">
+
+                        <div class="ls-half-board-data">
+                            
+                            <canvas id="chart-down-up"></canvas>
+                        </div>
+
+                        <div class="ls-half-board-data">
+                            <strong class="ls-color-theme">{{ ( downloadAvg|round ) |  integer_format_locale }}</strong>
+                            <small>{% trans "Download" %}</small>
+                            <strong class="ls-color-danger">{{ ( uploadAvg|round ) |  integer_format_locale }}</strong>
+                            <small>{% trans "Upload" %}</small>
+                        </div>
+
+
+                    </div>
+            
+                    <div class="ls-box-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ls-board-box">
+
+        <div class="row" >
+
+            <div class="col-md-6">
+                <div class="ls-box">
+
+                        <h6 class="ls-title-4">{% trans "Resumo conexões" %}</h6>
+                
+                        <canvas id="canvas-chart-connection" height=100px></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="ls-board-box">
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="ls-box">
+
+                    
+                <h6 class="ls-title-4">{% trans "Ultimos logins realizados" %}</h6>
+
+                <table class="ls-table ls-sm-space table-collapse">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Data e hora" %}</th>
+                            <th>{% trans "Usuário" %}</th>
+                            <th>{% trans "IP" %}</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+
+                        {% for auth in lastAuthsOk %}
+
+                        <tr>
+                            <td>{{auth.authdate}}</td>
+                            <td>{{auth.username}}</td>
+                            <td>{{auth.ip}}</td>
+                        </tr>
+
+                        {% else %}
+
+                            <tr>
+                                <td colspan=3>
+                                    {% trans "Nenhum resultado encontrado" %}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+
+                <div class="ls-box">
+
+                    
+                <h6 class="ls-title-4">{% trans "Ultimos logins rejeitados" %}</h6>
+
+                <table class="ls-table ls-sm-space table-collapse">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Data e hora" %}</th>
+                            <th>{% trans "Usuário" %}</th>
+                            <th>{% trans "IP" %}</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% for auth in lastAuthsError %}
+
+                        <tr>
+                            <td>{{auth.authdate}}</td>
+                            <td>{{auth.username}}</td>
+                            <td>{{auth.ip}}</td>
+                        </tr>
+
+                        {% else %}
+
+                            <tr>
+                                <td colspan=3>
+                                    {% trans "Nenhum resultado encontrado" %}
+                                </td>
+                            </tr>
+
+                        {% endfor %}
+
+                   </tbody>
+                </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block js %}
+
+    <script type="text/javascript" src="{{ base_url() }}/assets/public/js/statistic/charts.js"></script>
+
+    <script type="text/javascript">
+    
+        createSummaryConnectionsChart( 
+
+            {{ datesTextSummary | json_encode | raw }}, 
+            { 
+                label: "{% trans "Total de conexões" %}", 
+                data: {{ connectionsSummary | json_encode | raw }}
+            },
+            {
+                label: "{% trans "Total de usuários" %}", 
+                data: {{ usersSummary | json_encode | raw }} 
+            }
+        );
+
+        createAvgChart( 
+            {{ downloadAvg ?: 0 }},
+            {{ uploadAvg ?: 0 }}
+        );
+
+    </script>
+
+{% endblock %}

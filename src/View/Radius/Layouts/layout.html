@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="ls-theme-light-blue">
+    <head>
+        <title>Radius Admin</title>
+
+        <meta charset="utf-8">
+        <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    
+        <link href="{{ base_url() }}/assets/public/css/vendor.css" rel="stylesheet"/>
+        <link href="{{ base_url() }}/assets/public/css/app.css" rel="stylesheet"/>
+    </head>
+
+    <body>
+        <div class="ls-topbar ">
+
+            <div class="ls-notification-topbar">
+
+                <div class="ls-alerts-list">
+
+                    <a href="#" 
+                        class="ls-ico-bell-o" 
+                        data-counter="8" 
+                        data-ls-module="topbarCurtain" 
+                        data-target="#ls-notification-curtain">
+                        
+                        <span>{% trans "Notificações" %}</span>
+                    </a>
+
+                    <a href="#" 
+                        class="ls-ico-question" 
+                        data-ls-module="topbarCurtain" 
+                        data-target="#ls-feedback-curtain">
+                        
+                        <span>{% trans "Sugestões" %}</span>
+                    </a>
+
+                </div>
+
+                <div data-ls-module="dropdown" class="ls-dropdown ls-user-account">
+                
+                    <a href="#" class="ls-ico-user">
+                        <span class="ls-name">{{auth.user.name}}</span>
+                        ({{ auth.user.login }})
+                    </a>
+
+                    <nav class="ls-dropdown-nav ls-user-menu">
+                        <ul>
+                            <li>
+                                <a href="{{ path_for( 'logout' ) }}">
+                                    {% trans "Sair" %}
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            <span class="ls-show-sidebar ls-ico-menu"></span>
+
+            <h1 class="ls-brand-name">
+                <a href="home" class="ls-ico-earth">
+                    <small>freeradius interface</small>
+                    Radius Admin
+                </a>
+            </h1>
+        </div>
+
+        <aside class="ls-sidebar">
+
+            <div class="ls-sidebar-inner">
+                <nav class="ls-menu">
+                    <ul>
+                        <li>
+                            <a href="{{ base_url() }}/" class="ls-ico-home">
+                                {% trans "Inicio" %}
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="ls-ico-user">
+                                {% trans "Usuários" %}
+                            </a>
+                            
+                            <ul>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/users/list">
+                                        {% trans "Listar" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/users/create">
+                                        {% trans "Criar" %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>                        
+                        <li>
+                            <a href="#" class="ls-ico-users">
+                                {% trans "Grupos" %}
+                            </a>
+
+                            <ul>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/groups/list">
+                                        {% trans "Listar" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/groups/create">
+                                        {% trans "Criar" %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ls-ico-stats">
+                                {% trans "Estatísticas" %}
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/statistics/list">
+                                        {% trans "Geral" %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="ls-ico-ftp">
+                                {% trans "Clientes ( NAS )" %}
+                            </a>
+                            
+                            <ul>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/clients/list">
+                                        {% trans "Listar" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/clients/create">
+                                        {% trans "Criar" %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#" class="ls-ico-ftp">
+                                {% trans "Contartistas" %}
+                            </a>
+                            
+                            <ul>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/contractors/list">
+                                        {% trans "Listar" %}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ base_url() }}/protected/contractors/create">
+                                        {% trans "Criar" %}
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <main class="ls-main ">
+            <div class="container-fluid">
+                                
+                {% block content %}
+                {% endblock %}
+ 
+            </div>
+        </main>
+
+        <aside class="ls-notification">
+            <nav class="ls-notification-list" id="ls-notification-curtain" style="left: 1716px;">
+                <h3 class="ls-title-2">{% trans "Notificações" %}</h3>
+                <ul>
+                    <li class="ls-dismissable">
+                        <a href="#">Exemplo</a>
+                        <a href="#" data-ls-module="dismiss" class="ls-ico-close ls-close-notification"></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <nav class="ls-notification-list" id="ls-feedback-curtain" style="left: 1796px;">
+                <h3 class="ls-title-2">Ajuda</h3>
+                <ul>
+                    <li><a href="#">Exemplo</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <script src="{{ base_url() }}/assets/public/js/vendor.js"></script>
+        <script src="{{ base_url() }}/assets/public/js/app.js"></script>
+        <script type="text/javascript">
+
+            var dir = "{{ base_url() }}";
+
+            $( ".dtpicker" ).datepicker( {
+
+                autoClose: true
+            });
+
+        </script>
+        {% block js %}
+        {% endblock %}
+ 
+    </body>
+</html>

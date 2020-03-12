@@ -1,0 +1,89 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+{% block content %}
+    
+    <h1 class="ls-title-intro ls-ico-users">{% trans "Ver grupo" %}</h1>
+
+
+     <div class="ls-box">
+
+        <h2 class="ls-title-4">{{group.name}}</h2>
+        
+        <hr/>
+
+   
+        <h2 class="ls-title-6">
+            {% trans "Atributos de verificação" %}
+        </h2>
+
+        <div class="table-responsive">
+
+            <table class="ls-table">
+                
+                <thead>
+                    <tr>
+                        <th>{% trans "Atributo" %}</th>
+                        <th>{% trans "Operador" %}</th>
+                        <th>{% trans "Valor" %}</th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+
+                {% for check in group.attributesCheck %}  
+        
+                    <tr>
+                        <td>{{check.attribute}}</td>
+                        <td>{{check.op}}</td>
+                        <td>{{check.value}}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>
+                            {% trans "Nenhum atributo de verificação encontrado" %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <hr/>
+
+        <h2 class="ls-title-6">{% trans "Atributos de resposta" %}</h2>
+
+        <div class="table-responsive">
+
+            <table class="ls-table">
+                
+                <thead>
+                    <tr>
+                        <th>{% trans "Atributo" %}</th>
+                        <th>{% trans "Operador" %}</th>
+                        <th>{% trans "Valor" %}</th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+
+                {% for reply in group.attributesReply %}  
+        
+                    <tr>
+                        <td>{{reply.attribute}}</td>
+                        <td>{{reply.op}}</td>
+                        <td>{{reply.value}}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td>
+                            {% trans "Nenhum atributo de resposta encontrado" %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+{% endblock %}

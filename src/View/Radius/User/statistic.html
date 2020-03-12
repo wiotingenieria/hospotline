@@ -1,0 +1,264 @@
+{% extends "Radius/Layouts/layout.html" %} 
+
+{% block content %}
+
+    <h1 class="ls-title-intro ls-ico-user">{% trans "Estatísticas usuário" %}</h1>
+
+    <div class="ls-box-filter">
+        
+        <form action="{{ path_for( 'user_statistic' ) }}" class="ls-form ls-form-inline">
+            
+            <input type="hidden" name="userName" value="{{userName}}" />           
+
+            <label class="ls-label col-md-3 col-sm-3">
+                <b class="ls-label-text">{% trans "Dispositivo" %}</b>
+                <div class="ls-custom-select">
+                    <select name="mac" class="ls-select">
+
+                        <option value="">{% trans "Todos" %}</option>
+
+                        {% for device in devices %}
+                            
+                            <option value="{{device.mac}}" {{ device.mac == mac ? 'selected' : '' }} >
+                                {{device.mac}}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+            </label>
+
+            <label class="ls-label col-md-3 col-sm-3">
+                <b class="ls-label-text">NAS</b>
+                <div class="ls-custom-select">
+                    <select name="nas" class="ls-select">
+
+                        <option value="">{% trans "Todos" %}</option>
+                    
+                        {% for client in clients %}
+                            
+                            <option value="{{client.nasipaddress}}" {{ client.nasipaddress == nas ? 'selected' : '' }} >
+                                {{client.nasipaddress}}
+                            </option>
+                        {% endfor %}
+
+                    </select>
+                </div>
+            </label>
+            <label class="ls-label col-lg-2 col-md-3 col-sm-12">
+                <div class="ls-prefix-group">
+                    
+                    <input type="text" 
+                        name="date1" 
+                        class="dtpicker" 
+                        placeholder="{% trans "Data inicio" %}" 
+                        id="date1" 
+                        data-language="{% trans "pt-BR" %}"
+                        value="{{date1}}"
+                        readonly />
+                    
+                    <span class="ls-label-text-prefix ls-ico-calendar btn-calendar"></span>
+                </div>
+            </label>
+
+            <label class="ls-label col-lg-2 col-md-3 col-sm-12">
+                <div class="ls-prefix-group">
+                   
+                    <input type="text" 
+                        name="date2" 
+                        class="dtpicker" 
+                        placeholder="{% trans "Data final" %}" 
+                        id="date2" 
+                        data-language="{% trans "pt-BR" %}"
+                        value="{{date2}}"
+                        readonly />
+                    
+                    <span class="ls-label-text-prefix ls-ico-calendar btn-calendar"></span>
+                </div>
+            </label>
+
+
+            <input type="submit" 
+                value="{% trans "Pesquisar" %}" 
+                class="ls-btn ls-btn-primary ls-float-right"/>
+
+        </form>
+    </div>
+
+
+    <h2 class="ls-title-4 ls-md-margin-top">{{userName}}</h2>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <p>{% trans "Resumo conexões do usuário por período" %}</p>
+        </div>
+        <div class="col-md-6 col-sm-6">
+
+                <p class="ls-float-right ls-float-none-xs">
+                    {% trans "Período selecionado" %}: 
+                    <strong>
+                        {{ date1 ?: '' }} até {{ date2 ?: 'Agora' }}
+                    </strong>
+                </p>
+        </div>
+    </div>
+
+    <div class="ls-clearfix"></div>
+
+    <div class="ls-board-box">
+        <div id="sending-stats" class="row">
+    
+            <div class="col-sm-6 col-md-4">
+                <div class="ls-box">
+                   
+                    <div class="ls-box-head">
+                        <h6 class="ls-title-4">{% trans "Conexões" %}</h6>
+                    </div>
+                   
+                   <div class="ls-box-body">
+                        <strong class="ls-color-theme">{{ qtAccts |  integer_format_locale }}</strong>
+                        <small>{% trans "Conexões" %}</small>
+                    </div>
+            
+                    <div class="ls-box-footer"></div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="ls-box">
+                   
+                    <div class="ls-box-head">
+                        <h6 class="ls-title-4">{% trans "Tempo médio" %}</h6>
+                    </div>
+                   
+                   <div class="ls-box-body">
+                        <strong class="ls-color-theme">{{ ( timeAvg|round ) |  integer_format_locale }}</strong>
+                        <small>{% trans "Segundos" %}</small>
+                    </div>
+            
+                    <div class="ls-box-footer"></div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-md-4">
+                <div class="ls-box">
+                   
+                    <div class="ls-box-head">
+                        <h6 class="ls-title-4">{% trans "Comsumo médio" %}</h6>
+                    </div>
+                   
+                   <div class="ls-box-body">
+
+                        <div class="ls-half-board-data">
+                            
+                            <canvas id="chart-down-up"></canvas>
+                        </div>
+
+                        <div class="ls-half-board-data">
+                            <strong class="ls-color-theme">{{ ( downloadAvg|round ) | integer_format_locale }}</strong>
+                            <small>Download</small>
+                            <strong class="ls-color-danger">{{ ( uploadAvg|round ) |  integer_format_locale }}</strong>
+                            <small>Upload</small>
+                        </div>
+
+
+                    </div>
+            
+                    <div class="ls-box-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="row ls-md-margin-top">
+        <div class="col-md-12">
+    
+            <table class="ls-table table-collapse">
+                
+                <thead>
+                    <tr>
+                        <th>{% trans "IP" %}</th>
+                        <th>{% trans "Dispositivo" %}</th>
+                        <th>{% trans "Inicio" %}</th>
+                        <th>{% trans "Duração" %}</th>
+                        <th>{% trans "Cliente" %}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                    
+                <tbody>
+
+                {% for acct in radAccts %}
+                    <tr>                        
+                        <td>{{acct.framedipaddress}}</td>
+                        <td>{{acct.callingstationid}}</td>
+                        <td>{{acct.acctstarttime | date( "d/m/Y H:i:s" )}}</td>
+                        <td>{{acct.acctsessiontime}}</td>
+                        <td>{{acct.nasipaddress}}</td>
+                        <td>
+                            <a href="#" class="ls-btn ls-ico-zoomin"></a>      
+                        </td>
+                    </tr>
+
+                {% else %}
+                    <tr>
+                        <td colspan=6>{% trans "Nenhum registro para exibir" %}</td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+            <ul class="ls-pager">
+
+                {% if page - 1 >= 0 %}
+
+                    <li>
+                        <a href="{{ path_for( 'user_statistic' ) }}?userName={{userName}}&page={{page - 1}}&date1={{date1}}&date2={{date2}}&mac={{mac}}&nas={{nas}}">
+                            &laquo; {% trans "Anterior" %}
+                        </a>
+                    </li>
+                {% endif %}
+
+                    <li class="counter">
+                        {% trans "Página" %} {{page + 1}}
+                    </li>
+
+                {% if radAccts is not empty %}
+                
+                    <li>
+
+                        <a href="{{ path_for( 'user_statistic' ) }}?userName={{userName}}&page={{page + 1}}&date1={{date1}}&date2={{date2}}&mac={{mac}}&nas={{nas}}">
+                            {% trans "Próximo" %} &raquo;
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+    <script type="text/javascript" src="{{ base_url() }}/assets/public/js/statistic/charts.js"></script>
+
+    <script type="text/javascript">
+    
+        createAvgChart( 
+
+            {{ downloadAvg ?: 0 }}, 
+            {{ uploadAvg ?: 0 }} 
+        );
+
+    </script>
+
+{% endblock %}
+ 
